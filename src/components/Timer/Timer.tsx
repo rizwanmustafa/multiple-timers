@@ -84,14 +84,21 @@ const TimerInputField = (props: TimerInputFieldProps): JSX.Element => {
 
   const getDisplayNumber = (num: number) => num.toString().padStart(2, "0");
 
-  const incrementNum = () => setNum(Math.min(max, num + 1));
-  const decrementNum = () => setNum(Math.max(min, num - 1));
+  const incrementNum = () => {
+    const newNum = num + 1;
+    setNum(newNum <= max ? newNum : min);
+  }
+
+  const decrementNum = () => {
+    const newNum = num - 1;
+    setNum(newNum >= min ? newNum : max);
+  }
 
   return (
     <div className="timerInput">
-      <button disabled={num == max} onClick={incrementNum}>+</button>
+      <button onClick={incrementNum}>+</button>
       <input value={getDisplayNumber(num)} />
-      <button disabled={num == min} onClick={decrementNum}>-</button>
+      <button onClick={decrementNum}>-</button>
     </div>
   )
 }
