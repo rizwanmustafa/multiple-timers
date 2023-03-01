@@ -113,10 +113,19 @@ const TimerInputField = (props: TimerInputFieldProps): JSX.Element => {
     setNum(newNum >= min ? newNum : max);
   }
 
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    if (/^-?\d+$/.test(e.currentTarget.value)) {
+      const number = Number(e.currentTarget.value);
+      if (number <= max && number >= min) {
+        setNum(number);
+      }
+    }
+  }
+
   return (
     <div className="timerInput">
       <button onClick={incrementNum}>+</button>
-      <input value={getDisplayNumber(num)} />
+      <input value={getDisplayNumber(num)} onChange={handleInputChange}/>
       <button onClick={decrementNum}>-</button>
     </div>
   )
