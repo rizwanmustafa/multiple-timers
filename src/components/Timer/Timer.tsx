@@ -14,6 +14,27 @@ enum TimerState {
   PAUSED
 }
 
+interface TimerInputsProps {
+  hour: number;
+  setHour: React.Dispatch<React.SetStateAction<number>>;
+  minute: number;
+  setMinute: React.Dispatch<React.SetStateAction<number>>;
+  second: number;
+  setSecond: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const TimerInputs = (props: TimerInputsProps): JSX.Element => {
+  return (
+    <div className="timerInputs">
+      <TimerInputField num={props.hour} setNum={props.setHour} max={TIMER_MAX_HOUR} min={TIMER_MIN_HOUR} />
+      <p className="fieldSeparator">:</p>
+      <TimerInputField num={props.minute} setNum={props.setMinute} max={TIMER_MAX_MINUTE} min={TIMER_MIN_MINUTE} />
+      <p className="fieldSeparator">:</p>
+      <TimerInputField num={props.second} setNum={props.setSecond} max={TIMER_MAX_SECOND} min={TIMER_MIN_SECOND} />
+    </div>
+  );
+}
+
 export const Timer = (): JSX.Element => {
   const [timerState, setTimerState] = useState<TimerState>(TimerState.STOPPED);
 
@@ -45,13 +66,11 @@ export const Timer = (): JSX.Element => {
   return (
     <div className="timer">
 
-      <div className="timerInputs">
-        <TimerInputField num={hour} setNum={setHour} max={TIMER_MAX_HOUR} min={TIMER_MIN_HOUR} />
-        <p className="fieldSeparator">:</p>
-        <TimerInputField num={minute} setNum={setMinute} max={TIMER_MAX_MINUTE} min={TIMER_MIN_MINUTE} />
-        <p className="fieldSeparator">:</p>
-        <TimerInputField num={second} setNum={setSecond} max={TIMER_MAX_SECOND} min={TIMER_MIN_SECOND} />
-      </div>
+      <TimerInputs
+        hour={hour} setHour={setHour}
+        minute={minute} setMinute={setMinute}
+        second={second} setSecond={setSecond}
+      />
 
       <div className="controlPanel">
         <button
