@@ -1,4 +1,6 @@
-.timer .timerInputs, .timer .controlPanel {
+.timer .timerInputs,
+.timer .controlPanel,
+.timer .timerCountdown {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,11 +18,12 @@
 }
 
 .timer .timerInputs .fieldSeparator {
-font-size: 2.5rem;
-font-weight: bold;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 
-.timer .timerInput input {
+.timer .timerInput input,
+.timer .timerCountdown p {
   font-size: 2rem;
   font-weight: bold;
   padding: 0.5rem;
@@ -30,18 +33,23 @@ font-weight: bold;
   background: white;
   color: black;
   text-align: center;
-  width: 10rem;
   user-select: none;
   border: none;
   width: 2.5rem;
 
 }
 
+.timer .timerCountdown p {
+  padding: 0.2rem;
+  margin: 0;
+}
+
 .timer .timerInput input:focus {
   outline: 1px solid #ff416c;
 }
 
-.timer .controlPanel button , .timer .timerInput button{
+.timer .controlPanel button,
+.timer .timerInput button {
   all: unset;
   cursor: pointer;
   font-size: 1rem;
@@ -57,10 +65,11 @@ font-weight: bold;
 
   user-select: none;
 }
- 
+
 
 /* Write styles for disabled buttons */
-.timer .controlPanel button:disabled, .timer .timerInput button:disabled {
+.timer .controlPanel button:disabled,
+.timer .timerInput button:disabled {
   cursor: not-allowed;
   background: #ccc;
   color: #666;

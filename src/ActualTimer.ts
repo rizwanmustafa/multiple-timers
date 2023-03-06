@@ -4,7 +4,7 @@ export class ActualTimer {
 
   private startTime: Date | null;
 
-  constructor(private readonly durationSeconds: number) {
+  constructor(durationSeconds: number) {
     this.totalDurationSeconds = durationSeconds;
     this.currentDurationSeconds = this.totalDurationSeconds;
     this.startTime = null;
@@ -18,7 +18,7 @@ export class ActualTimer {
   pause() {
     if (this.startTime === null) return;
 
-    this.currentDurationSeconds = Math.max(0, this.totalDurationSeconds - Math.floor((new Date().getTime() - this.startTime.getTime()) / 1000));
+    this.currentDurationSeconds = Math.max(0, this.totalDurationSeconds - this.getElapsedSeconds());
     this.startTime = null;
   }
 
@@ -48,5 +48,19 @@ export class ActualTimer {
 export function getTotalSeconds(hours: number, minutes: number, seconds: number): number {
   return hours * 3600 + minutes * 60 + seconds;
 }
+
+export function getHours(totalSeconds: number): number {
+  return Math.floor(totalSeconds / 3600);
+}
+
+export function getMinutes(totalSeconds: number): number {
+  return Math.floor((totalSeconds % 3600) / 60);
+}
+
+export function getSeconds(totalSeconds: number): number {
+
+  return totalSeconds % 60;
+}
+
 
 export default ActualTimer;
