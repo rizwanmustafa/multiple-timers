@@ -18,7 +18,7 @@ export class ActualTimer {
   pause() {
     if (this.startTime === null) return;
 
-    this.currentDurationSeconds = Math.max(0, this.totalDurationSeconds - this.getElapsedSeconds());
+    this.currentDurationSeconds = Math.max(0, this.currentDurationSeconds - this.getRawElapsedSeconds());
     this.startTime = null;
   }
 
@@ -31,7 +31,7 @@ export class ActualTimer {
     return this.totalDurationSeconds;
   }
 
-  getElapsedSeconds() {
+  getRawElapsedSeconds() {
     if (this.startTime) {
       return Math.floor((new Date().getTime() - this.startTime.getTime()) / 1000);
     }
@@ -39,8 +39,16 @@ export class ActualTimer {
     return 0;
   }
 
+  getElapsedSeconds() {
+    return Math.floor(this.getRawElapsedSeconds());
+  }
+
+  getRawRemainingSeconds() {
+    return Math.max(this.currentDurationSeconds - this.getRawElapsedSeconds(), 0);
+  }
+
   getRemainingSeconds() {
-    return Math.max(this.currentDurationSeconds - this.getElapsedSeconds(), 0);
+    return Math.floor(this.getRawRemainingSeconds());
   }
 
 }
