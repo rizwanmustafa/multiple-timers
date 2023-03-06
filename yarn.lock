@@ -2689,6 +2689,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/howler@npm:*":
+  version: 2.2.7
+  resolution: "@types/howler@npm:2.2.7"
+  checksum: e9d6723f946a7526c8562436c06ad64d55f63a0573bfbf08c776e3785ab520a3138da84058f280b0fe7d8a819af77af3dd62d88f873a316d3723dc2ad575aa0d
+  languageName: node
+  linkType: hard
+
 "@types/html-minifier-terser@npm:^6.0.0":
   version: 6.1.0
   resolution: "@types/html-minifier-terser@npm:6.1.0"
@@ -2833,6 +2840,16 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 579691e4d5ec09688087568037c35edf8cfb1ab3e07f6c60029280733ee7b5c06d66df6fcc90786702c93ac8cb13bc7ff16c79ddfc75d082938fbaa36e1cdbf4
+  languageName: node
+  linkType: hard
+
+"@types/react-howler@npm:5.2.0":
+  version: 5.2.0
+  resolution: "@types/react-howler@npm:5.2.0"
+  dependencies:
+    "@types/howler": "*"
+    "@types/react": "*"
+  checksum: 4267021a6a56a8cdb77855384076aa6833873f82ced34695b6a2bcb5d10671eec30a525ff3aade88bdb60fb05ffb3e0093e2776c348755b263a2e66ea33d6015
   languageName: node
   linkType: hard
 
@@ -6687,6 +6704,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"howler@npm:^2.2.0":
+  version: 2.2.3
+  resolution: "howler@npm:2.2.3"
+  checksum: c04ce19411f4d86f8508d411a93aea943f128c2686b3df3c61383fd4ed8f5551232c4389aba3a8d4c8b0eeb34ae51df5a9c3ccd9ba48583ac53e9bf9fcbd1ecf
+  languageName: node
+  linkType: hard
+
 "hpack.js@npm:^2.1.6":
   version: 2.1.6
   resolution: "hpack.js@npm:2.1.6"
@@ -8844,8 +8868,10 @@ __metadata:
     "@types/node": ^16.7.13
     "@types/react": ^18.0.0
     "@types/react-dom": ^18.0.0
+    "@types/react-howler": 5.2.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-howler: 5.2.0
     react-scripts: 5.0.1
     typescript: ^4.4.2
     web-vitals: ^2.1.0
@@ -10387,7 +10413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.6, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10558,6 +10584,16 @@ __metadata:
   version: 6.0.11
   resolution: "react-error-overlay@npm:6.0.11"
   checksum: ce7b44c38fadba9cedd7c095cf39192e632daeccf1d0747292ed524f17dcb056d16bc197ddee5723f9dd888f0b9b19c3b486c430319e30504289b9296f2d2c42
+  languageName: node
+  linkType: hard
+
+"react-howler@npm:5.2.0":
+  version: 5.2.0
+  resolution: "react-howler@npm:5.2.0"
+  dependencies:
+    howler: ^2.2.0
+    prop-types: ^15.5.6
+  checksum: 7d67f45495274368e953e230b4cb713348687d1bcc8a3a4a917de3b60f6603c2933ab996de6350f6e9de72fb98297975c870ac1711e145f0b5028d21dee18a57
   languageName: node
   linkType: hard
 
