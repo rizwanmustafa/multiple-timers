@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import ActualTimer, { getTotalSeconds } from "../../ActualTimer";
 import "./styles.css";
 
 const TIMER_MAX_HOUR = 99;
@@ -37,18 +38,33 @@ const TimerInputs = (props: TimerInputsProps): JSX.Element => {
 
 export const Timer = (): JSX.Element => {
   const [timerState, setTimerState] = useState<TimerState>(TimerState.STOPPED);
+  const [timerStatus, setTimerStatus] = useState<{ elapsedSeconds: number, remainingSeconds: number }>({ elapsedSeconds: 0, remainingSeconds: 0 });
+  const timer = useRef<null | ActualTimer>(null);
 
   const [hour, setHour] = useState<number>(0);
   const [minute, setMinute] = useState<number>(0);
   const [second, setSecond] = useState<number>(0);
 
+
   const toggleTimer = () => {
-    if (timerState === TimerState.STARTED) setTimerState(TimerState.PAUSED);
-    else setTimerState(TimerState.STARTED);
+    if (timerState === TimerState.STARTED) {
+      setTimerState(TimerState.PAUSED);
+
+      timer.current?.pause();
+    }
+
+    else {
+      setTimerState(TimerState.STARTED);
+      const timerSeconds = getTotalSeconds(hour, minute, second);
+      if (timer.current === null) timer.current = new ActualTimer(timerSeconds);
+      console.log(timer);
+      timer.current.start();
+    }
   }
 
   const resetTimer = () => {
     setTimerState(TimerState.STOPPED);
+    timer.current = null;
   }
 
   const getButtonText = (): string => {
@@ -63,14 +79,44 @@ export const Timer = (): JSX.Element => {
     }
   }
 
+
+  // Manage timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timer.current === null) return;
+
+      const newElapsedSeconds = timer.current?.getElapsedSeconds() ?? 0;
+      const newRemainingSeconds = timer.current?.getRemainingSeconds() ?? 0;
+
+      if (timerStatus.elapsedSeconds !== newElapsedSeconds || timerStatus.remainingSeconds !== newRemainingSeconds) {
+        setTimerStatus({ elapsedSeconds: newElapsedSeconds, remainingSeconds: newRemainingSeconds });
+      }
+
+      if (newRemainingSeconds === 0) {
+        console.log("The timer has finished!")
+        resetTimer();
+      }
+
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [])
+
+
+
   return (
     <div className="timer">
 
-      <TimerInputs
-        hour={hour} setHour={setHour}
-        minute={minute} setMinute={setMinute}
-        second={second} setSecond={setSecond}
-      />
+      {
+        timerState === TimerState.STOPPED &&
+        <TimerInputs
+          hour={hour} setHour={setHour}
+          minute={minute} setMinute={setMinute}
+          second={second} setSecond={setSecond}
+        />
+      }
+
+      {timerState !== TimerState.STOPPED && <p>{`Elapsed Seconds: ${timerStatus.elapsedSeconds} Remaining Seconds: ${timerStatus.remainingSeconds}`}</p>}
 
       <div className="controlPanel">
         <button
@@ -125,7 +171,7 @@ const TimerInputField = (props: TimerInputFieldProps): JSX.Element => {
   return (
     <div className="timerInput">
       <button onClick={incrementNum}>+</button>
-      <input value={getDisplayNumber(num)} onChange={handleInputChange}/>
+      <input value={getDisplayNumber(num)} onChange={handleInputChange} />
       <button onClick={decrementNum}>-</button>
     </div>
   )
